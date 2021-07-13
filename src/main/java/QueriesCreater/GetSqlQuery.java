@@ -78,8 +78,8 @@ public class GetSqlQuery {
             xlsHeaders.append("\tas_xlsx.set_column_width(")
                     .append(x).append(", ").append(pColumns[i][1]).append("); ")
                     .append("as_xlsx.cell(").append(x).append(", 1, '").append(pColumns[i][0]).append("', ")
-                    .append("p_alignment => as_xlsx.get_alignment (")
-                    .append("p_horizontal => '").append(horizontalAlignment).append("', ")
+                    .append("p_alignment => as_xlsx.get_alignment\n")
+                    .append("(p_horizontal => '").append(horizontalAlignment).append("', ")
                     .append("p_vertical => '").append(verticalAlignment).append("', ")
                     .append("p_wraptext => ").append(wrapText)
                     .append("));\n");
@@ -89,7 +89,7 @@ public class GetSqlQuery {
                 + "    as_xlsx.set_row(row_num, p_fontId => as_xlsx.get_font('")
                 .append(xlsFont)
                 .append("', p_fontsize => ").append(rowsFontSize)
-                .append("), p_borderId => as_xlsx.get_border);\n")
+                .append("), \np_borderId => as_xlsx.get_border);\n")
                 .append("    as_xlsx.set_row_height(row_num, ")
                 .append(rowHeight)
                 .append(");\n    --\n");
@@ -99,11 +99,11 @@ public class GetSqlQuery {
             int x = i + 1;
             xlsHeaders.append("    as_xlsx.cell(")
                     .append(x).append(", i + 1, coalesce(p_type(i).").append(pColumns[i][2]).append(", '-'), ")
-                    .append("p_alignment => as_xlsx.get_alignment(\n")
-                    .append("p_horizontal => '").append(horizontalAlignment).append("', ")
+                    .append("p_alignment => as_xlsx.get_alignment\n")
+                    .append("(p_horizontal => '").append(horizontalAlignment).append("', ")
                     .append("p_vertical => '").append(verticalAlignment).append("', ")
                     .append("p_wraptext => ").append(wrapText)
-                    .append("), p_fontId => as_xlsx.get_font('")
+                    .append("), p_fontId => \nas_xlsx.get_font('")
                     .append(rowsFont)
                     .append("', p_fontsize => ")
                     .append(rowsFontSize)
@@ -120,7 +120,7 @@ public class GetSqlQuery {
                 + "   when others then\n"
                 + "    sb_util.write_log('package.")
                 .append(functionName)
-                .append(" ошибка: ' ||sqlerrm||chr(13)||dbms_utility.format_error_backtrace, 'info'); \n")
+                .append(" ошибка: ' ||sqlerrm||chr(13)||\ndbms_utility.format_error_backtrace, 'info'); \n")
                 .append("END;\n\n");
 
         // Формирование процедуры для скачивания файла
@@ -144,7 +144,7 @@ public class GetSqlQuery {
                 .append("  end if;\n\n")
                 .append("exception\n" + "  when others then\n" + "    sb_util.write_log('package.")
                 .append(procedureName)
-                .append(" ошибка: ' || sqlerrm ||chr(13)||dbms_utility.format_error_backtrace, 'info');\n")
+                .append(" ошибка: ' || sqlerrm ||chr(13)||\ndbms_utility.format_error_backtrace, 'info');\n")
                 .append("end;");
 
         return xlsHeaders.toString();
