@@ -1,6 +1,6 @@
 # oracle_xlsx
 
-Export to Excel based on the package:
+Export to Excel based on the package AS_XLSX:
 
 https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
