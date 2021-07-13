@@ -1,5 +1,9 @@
 # oracle_xlsx
 
+Export to Excel based on the package:
+
+https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
+
 gui:
 
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
