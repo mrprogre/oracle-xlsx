@@ -7,17 +7,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 public class Gui extends JFrame {
-    static ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
-    static JTable table;
+    static JTable columnsTable;
     static DefaultTableModel model;
     static JTable objectTable;
-    static DefaultTableModel objectModel;
-    static int guiWindowHeight = 620;
-    static int guiWindowWidth = 370;
-    static int guiWindowX = 650;
-    static int guiWindowY = 190;
+    ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
+    DefaultTableModel objectModel;
+    JComboBox<String> typesCombobox = new JComboBox<>();
+    final String [] plsqlTypes = {"NUMBER","VARCHAR2","DATE","CHAR","NCHAR","NVARCHAR2","LONG","RAW","LONG_RAW",
+                                  "NUMERIC","DEC","DECIMAL","PLS_INTEGER","BFILE","BLOB","CLOB","NCLOB",
+                                  "BOOLEAN","ROWID"};
 
     public Gui() {
         this.setResizable(false);
@@ -25,9 +26,14 @@ public class Gui extends JFrame {
         this.setTitle("PL/SQL: excel export");
         this.setFont(new Font("Tahoma", Font.PLAIN, 14));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setBounds(guiWindowX, guiWindowY, guiWindowWidth, guiWindowHeight);
+        this.setBounds(650, 190, 370, 620);
         this.getContentPane().setBackground(new Color(0xFFF9A1));
         this.getContentPane().setLayout(null);
+
+        // заполняем комбобокс типами данных PL/SQL
+        for (String type : plsqlTypes) {
+            typesCombobox.addItem(type);
+        }
 
         // Object name table
         final JScrollPane objectNames = new JScrollPane();
@@ -109,42 +115,45 @@ public class Gui extends JFrame {
                 return this.columnEditables[column];
             }
         };
-        table = new JTable(model);
+        columnsTable = new JTable(model);
 
         // cell border color
-        table.setGridColor(new Color(58, 79, 79));
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        columnsTable.setGridColor(new Color(58, 79, 79));
+        columnsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         // table background color
-        table.setFillsViewportHeight(true);
-        table.setBackground(new Color(250, 252, 255));
+        columnsTable.setFillsViewportHeight(true);
+        columnsTable.setBackground(new Color(250, 252, 255));
         // headers settings
-        JTableHeader header = table.getTableHeader();
+        JTableHeader header = columnsTable.getTableHeader();
         header.setFont(new Font("Tahoma", Font.BOLD, 13));
         //cell alignment
         DefaultTableCellRenderer Renderer = new DefaultTableCellRenderer();
         Renderer.setHorizontalAlignment(JLabel.CENTER);
-        table.getColumnModel().getColumn(0).setCellRenderer(Renderer);
-        table.getColumnModel().getColumn(1).setCellRenderer(Renderer);
-        table.getColumnModel().getColumn(2).setCellRenderer(Renderer);
-        table.getColumnModel().getColumn(3).setCellRenderer(Renderer);
-        table.setRowHeight(20);
-        table.setColumnSelectionAllowed(true);
-        table.setCellSelectionEnabled(true);
-        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        table.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        table.getColumnModel().getColumn(0).setPreferredWidth(90);
-        table.getColumnModel().getColumn(1).setPreferredWidth(48);
-        table.getColumnModel().getColumn(2).setPreferredWidth(90);
-        table.getColumnModel().getColumn(3).setPreferredWidth(90);
+        columnsTable.getColumnModel().getColumn(0).setCellRenderer(Renderer);
+        columnsTable.getColumnModel().getColumn(1).setCellRenderer(Renderer);
+        columnsTable.getColumnModel().getColumn(2).setCellRenderer(Renderer);
+        columnsTable.getColumnModel().getColumn(3).setCellRenderer(Renderer);
+        // Типы данных - комбобокс
+        TableColumn testColumn = columnsTable.getColumnModel().getColumn(3);
+        testColumn.setCellEditor(new DefaultCellEditor(typesCombobox));
+        columnsTable.setRowHeight(20);
+        columnsTable.setColumnSelectionAllowed(true);
+        columnsTable.setCellSelectionEnabled(true);
+        columnsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        columnsTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        columnsTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        columnsTable.getColumnModel().getColumn(1).setPreferredWidth(48);
+        columnsTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+        columnsTable.getColumnModel().getColumn(3).setPreferredWidth(110);
         //colors
-        table.setSelectionBackground(new Color(254, 204, 204));
-        scrollPane.setViewportView(table);
+        columnsTable.setSelectionBackground(new Color(254, 204, 204));
+        scrollPane.setViewportView(columnsTable);
 
         // удаление содержимого ячейки кнопкой Delete
-        table.addKeyListener(new KeyAdapter() {
+        columnsTable.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==127){
-                    table.setValueAt("", table.getSelectedRow(), table.getSelectedColumn());
+                    columnsTable.setValueAt("", columnsTable.getSelectedRow(), columnsTable.getSelectedColumn());
                 }
             }
         });
@@ -181,9 +190,9 @@ public class Gui extends JFrame {
         getContentPane().add(columnLbl);
 
         clearTableBtn.addActionListener((e) -> {
-            for (int i = 0; i < table.getRowCount(); i++)
-                for(int j = 0; j < table.getColumnCount(); j++) {
-                    table.setValueAt("", i, j);
+            for (int i = 0; i < columnsTable.getRowCount(); i++)
+                for(int j = 0; j < columnsTable.getColumnCount(); j++) {
+                    columnsTable.setValueAt("", i, j);
                 }
         });
 
@@ -195,7 +204,7 @@ public class Gui extends JFrame {
         // определяем количество строк для создания массива (количество столбцов статическое - 4)
         int rowCount = 0;
         for (int i = 0; i < model.getRowCount(); i++) {
-            if (table.getValueAt(i, 0) != null) {
+            if (columnsTable.getValueAt(i, 0) != null) {
                 rowCount++;
             }
         }
@@ -214,8 +223,8 @@ public class Gui extends JFrame {
         Object[][] columns = new Object[rowCount][4];
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < 4; j++) {
-                if (table.getValueAt(i, j) != null) {
-                    columns [i][j] = table.getValueAt(i, j);
+                if (columnsTable.getValueAt(i, j) != null) {
+                    columns [i][j] = columnsTable.getValueAt(i, j);
                 }
             }
         }
