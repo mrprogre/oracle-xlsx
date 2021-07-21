@@ -6,7 +6,7 @@ https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
 gui:
 
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
+![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/GUI.png)
 
 column data entered:
 
