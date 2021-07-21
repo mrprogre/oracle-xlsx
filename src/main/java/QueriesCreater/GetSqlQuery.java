@@ -121,9 +121,19 @@ public class GetSqlQuery {
         // rows
         for (int i = 0; i < pColumns.length; i++) {
             int x = i + 1;
-            xlsHeaders.append("    as_xlsx.cell(")
-                    .append(x).append(", i + 1, coalesce(p_type(i).").append(pColumns[i][2]).append(", '-'), ")
-                    .append("p_alignment => as_xlsx.get_alignment\n")
+            xlsHeaders.append("    as_xlsx.cell(");
+
+            if (pColumns[i][3] != null && pColumns[i][3].equals("DATE")){
+                xlsHeaders.append(x).append(", i + 1, coalesce(to_char(p_type(i).")
+                        .append(pColumns[i][2])
+                        .append(", 'dd.mm.yyyy'), '-'), ");
+            } else {
+                xlsHeaders.append(x).append(", i + 1, coalesce(p_type(i).")
+                .append(pColumns[i][2])
+                .append(", '-'), ");
+            }
+
+            xlsHeaders.append("p_alignment => as_xlsx.get_alignment\n")
                     .append("(p_horizontal => '").append(horizontalAlignment).append("', ")
                     .append("p_vertical => '").append(verticalAlignment).append("', ")
                     .append("p_wraptext => ").append(wrapText)
