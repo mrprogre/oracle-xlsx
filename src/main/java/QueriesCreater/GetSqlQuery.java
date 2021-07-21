@@ -53,7 +53,7 @@ public class GetSqlQuery {
         xlsHeaders.append("-- procedure\n");
         xlsHeaders.append("procedure ").append(procedureName).append(" is\n")
                 .append("  l_file BLOB;\n")
-                .append("  l_file_name varchar2(30);\n")
+                .append("  l_file_name varchar2(30) := 'file_name';\n")
                 .append("  l_type ").append(typeTableName).append(";\n")
                 .append("begin\n")
                 .append("  select ");
