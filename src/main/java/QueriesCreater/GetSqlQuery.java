@@ -42,15 +42,39 @@ public class GetSqlQuery {
         xlsHeaders.deleteCharAt(xlsHeaders.length() - 2);
         xlsHeaders.append(");\n\n");
 
-        //создаём тип таблицы на основе записи
+        //создаём таблицу на основе записи
         xlsHeaders.append("type ").append(typeTableName).append(" is table of ").append(recordName).append(";\n\n");
-
         // создаём функцию на основе типа таблицы
         xlsHeaders.append("function ").append(functionName).append("(p_type in ").append(typeTableName).append(") return blob;\n\n");
 
         // тело пакета
         xlsHeaders.append("-- Package body\n");
-        // создание функции
+        // Создание процедуры для скачивания файла
+        xlsHeaders.append("-- procedure\n");
+        xlsHeaders.append("procedure ").append(procedureName).append(" is\n")
+                .append("  l_file BLOB;\n")
+                .append("  l_file_name varchar2(30);\n")
+                .append("  l_type ").append(typeTableName).append(";\n")
+                .append("begin\n")
+                .append("  select ");
+        for (Object[] column : pColumns) {
+            xlsHeaders.append(column[2]).append(", ");
+        }
+        xlsHeaders.deleteCharAt(xlsHeaders.length() - 2).append("\n");
+        xlsHeaders.append("    bulk collect into l_type\n    from ")
+                .append(tableOrViewName).append("\n");
+        xlsHeaders.append("   where column_name between sysdate and sysdate + 1;\n" + "\n" + "  l_file := ")
+                .append(functionName).append("(l_type);\n").append("\n")
+                .append("  if lengthb(l_file) > 0 then\n")
+                .append("    api_datasource.setColumnValue('BLOB_DUAL_ds.blob', l_file);\n")
+                .append("    api_datasource.download('BLOB_DUAL_ds.blob', l_file_name||'.xlsx');\n")
+                .append("  end if;\n\n")
+                .append("exception\n" + "  when others then\n" + "    sb_util.write_log('package.")
+                .append(procedureName)
+                .append(" ошибка: ' || sqlerrm ||chr(13)||\ndbms_utility.format_error_backtrace, 'info');\n")
+                .append("end;");
+
+        // Создание функции для формирования файла
         xlsHeaders.append("-- function\n");
         xlsHeaders.append("function ").append(functionName).append("(p_type in ").append(typeTableName).append(") return blob is\n")
                 .append("  row_num number := 0;\n")
@@ -122,30 +146,6 @@ public class GetSqlQuery {
                 .append(functionName)
                 .append(" ошибка: ' ||sqlerrm||chr(13)||\ndbms_utility.format_error_backtrace, 'info'); \n")
                 .append("END;\n\n");
-
-        // Формирование процедуры для скачивания файла
-        xlsHeaders.append("-- procedure\n");
-        xlsHeaders.append("procedure ").append(procedureName).append(" is\n")
-                .append("  l_file BLOB;\n")
-                .append("  l_type ").append(typeTableName).append(";\n")
-                .append("begin\n")
-                .append("  select ");
-        for (Object[] column : pColumns) {
-            xlsHeaders.append(column[2]).append(", ");
-        }
-        xlsHeaders.deleteCharAt(xlsHeaders.length() - 2).append("\n");
-        xlsHeaders.append("    bulk collect into l_type\n    from ")
-                .append(tableOrViewName).append("\n");
-        xlsHeaders.append("   where column_name between sysdate and sysdate + 1;\n" + "\n" + "  l_file := ")
-                .append(functionName).append("(l_type);\n").append("\n")
-                .append("  if lengthb(l_file) > 0 then\n")
-                .append("    api_datasource.setColumnValue('BLOB_DUAL_ds.blob', l_file);\n")
-                .append("    api_datasource.download('BLOB_DUAL_ds.blob', file_name||'.xlsx');\n")
-                .append("  end if;\n\n")
-                .append("exception\n" + "  when others then\n" + "    sb_util.write_log('package.")
-                .append(procedureName)
-                .append(" ошибка: ' || sqlerrm ||chr(13)||\ndbms_utility.format_error_backtrace, 'info');\n")
-                .append("end;");
 
         return xlsHeaders.toString();
     }
