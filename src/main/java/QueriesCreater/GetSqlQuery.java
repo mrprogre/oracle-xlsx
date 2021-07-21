@@ -72,7 +72,7 @@ public class GetSqlQuery {
                 .append("exception\n" + "  when others then\n" + "    sb_util.write_log('package.")
                 .append(procedureName)
                 .append(" ошибка: ' || sqlerrm ||chr(13)||\ndbms_utility.format_error_backtrace, 'info');\n")
-                .append("end;");
+                .append("end;\n\n");
 
         // Создание функции для формирования файла
         xlsHeaders.append("-- function\n");
@@ -145,7 +145,7 @@ public class GetSqlQuery {
                 + "    sb_util.write_log('package.")
                 .append(functionName)
                 .append(" ошибка: ' ||sqlerrm||chr(13)||\ndbms_utility.format_error_backtrace, 'info'); \n")
-                .append("END;\n\n");
+                .append("END;");
 
         return xlsHeaders.toString();
     }
