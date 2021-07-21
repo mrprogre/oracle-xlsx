@@ -130,7 +130,7 @@ public class Gui extends JFrame {
         table.setRowHeight(20);
         table.setColumnSelectionAllowed(true);
         table.setCellSelectionEnabled(true);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setFont(new Font("SansSerif", Font.PLAIN, 13));
         table.getColumnModel().getColumn(0).setPreferredWidth(90);
         table.getColumnModel().getColumn(1).setPreferredWidth(48);
@@ -194,9 +194,7 @@ public class Gui extends JFrame {
     public static void getValues() {
         // определяем количество строк для создания массива (количество столбцов статическое - 4)
         int rowCount = 0;
-        int columnCount = table.getColumnCount();
-
-        for (int i = 0; i < columnCount; i++) {
+        for (int i = 0; i < model.getRowCount(); i++) {
             if (table.getValueAt(i, 0) != null) {
                 rowCount++;
             }
@@ -215,7 +213,7 @@ public class Gui extends JFrame {
         // столбцы
         Object[][] columns = new Object[rowCount][4];
         for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
+            for (int j = 0; j < 4; j++) {
                 if (table.getValueAt(i, j) != null) {
                     columns [i][j] = table.getValueAt(i, j);
                 }
