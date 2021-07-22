@@ -22,7 +22,7 @@ public class Gui extends JFrame {
     ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
     DefaultTableModel objectModel;
     JComboBox<String> typesCombobox = new JComboBox<>();
-    final String [] plsqlTypes = {"NUMBER","VARCHAR2","DATE","CHAR","NCHAR","NVARCHAR2","LONG","RAW","LONG_RAW",
+    final String [] plsqlTypes = {"NUMBER","VARCHAR2(4000)","DATE","CHAR(69)","NCHAR","NVARCHAR2","LONG","RAW","LONG_RAW",
                                   "NUMERIC","DEC","DECIMAL","PLS_INTEGER","BFILE","BLOB","CLOB","NCLOB",
                                   "BOOLEAN","ROWID"};
 
