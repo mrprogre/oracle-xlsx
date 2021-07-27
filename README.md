@@ -2,6 +2,7 @@
 
 Actual version: https://github.com/mrprogre/oracle_xlsx/blob/master/oracle_xlsx.jar
 
+***
 
 
 Export to Excel based on the package AS_XLSX:
