@@ -3,8 +3,10 @@ package QueriesCreater;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.EventObject;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -85,7 +87,7 @@ public class Gui extends JFrame {
         objectRenderer.setHorizontalAlignment(JLabel.LEADING);
         objectTable.getColumnModel().getColumn(0).setCellRenderer(objectRenderer);
         objectTable.getColumnModel().getColumn(1).setCellRenderer(objectRenderer);
-        objectTable.setRowHeight(20);
+        objectTable.setRowHeight(24);
         objectTable.setColumnSelectionAllowed(true);
         objectTable.setCellSelectionEnabled(true);
         objectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -138,8 +140,8 @@ public class Gui extends JFrame {
         columnsTable.getColumnModel().getColumn(3).setCellRenderer(Renderer);
         // Типы данных - комбобокс
         TableColumn testColumn = columnsTable.getColumnModel().getColumn(3);
-        testColumn.setCellEditor(new DefaultCellEditor(typesCombobox));
-        columnsTable.setRowHeight(20);
+        testColumn.setCellEditor(new comboBoxRenderer(typesCombobox));
+        columnsTable.setRowHeight(24);
         columnsTable.setColumnSelectionAllowed(true);
         columnsTable.setCellSelectionEnabled(true);
         columnsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -383,6 +385,15 @@ public class Gui extends JFrame {
                 }
             }
             return c;
+        }
+    }
+
+    // Ячейка с типами (comboBox renderer)
+    public static class comboBoxRenderer extends DefaultCellEditor {
+        public comboBoxRenderer(JComboBox comboBox) {
+            super(comboBox);
+            super.setClickCountToStart(1);
+            comboBox.setEditable(true);
         }
     }
 }
