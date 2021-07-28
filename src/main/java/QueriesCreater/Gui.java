@@ -254,7 +254,7 @@ public class Gui extends JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT or CSV", "csv", "txt");
         open.setFileFilter(filter);
         open.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Desktop"));
-        int ret = open.showDialog(null, "Выберите файл");
+        int ret = open.showDialog(null, "Open");
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = open.getSelectedFile();
             getLinesFromFile(file.toString());
