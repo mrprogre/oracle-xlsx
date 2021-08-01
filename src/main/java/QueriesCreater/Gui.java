@@ -260,7 +260,7 @@ public class Gui extends JFrame {
         backGround.setToolTipText("Choose a background color for headers");
         backGround.setFont(new Font("Tahoma", Font.BOLD, 11));
         backGround.setFocusable(false);
-        backGround.setContentAreaFilled(true);
+        backGround.setContentAreaFilled(false);
         backGround.setBorderPainted(true);
         backGround.setBackground(new Color(232, 37, 137));
         backGround.setBounds(395, 166, 26, 23);
