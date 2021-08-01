@@ -177,7 +177,7 @@ public class Gui extends JFrame {
         columnsTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
         columnsTable.getColumnModel().getColumn(0).setPreferredWidth(158);
         columnsTable.getColumnModel().getColumn(1).setPreferredWidth(58);
-        columnsTable.getColumnModel().getColumn(2).setPreferredWidth(166);
+        columnsTable.getColumnModel().getColumn(2).setPreferredWidth(164);
         columnsTable.getColumnModel().getColumn(3).setPreferredWidth(120);
         //colors
         columnsTable.setSelectionBackground(new Color(254, 204, 204));
