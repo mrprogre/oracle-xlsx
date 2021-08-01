@@ -1,11 +1,11 @@
 # oracle_xlsx
 
-Actual version: https://github.com/mrprogre/oracle_xlsx/blob/master/oracle_xlsx.jar
+<b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/blob/master/oracle_xlsx.jar
 
 ***
 
 
-Export to Excel based on the package AS_XLSX:
+Export to Excel based on the package <b>AS_XLSX</b>:
 
 https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
@@ -14,7 +14,7 @@ gui:
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
 
-result:
+approximate result:
 
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
 
