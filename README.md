@@ -11,11 +11,8 @@ https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
 gui:
 
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/GUI.png)
+![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
-column data entered:
-
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui_2.png)
 
 result:
 
