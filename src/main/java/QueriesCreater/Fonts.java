@@ -8,6 +8,7 @@ public class Fonts {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Font[] allFonts = ge.getAllFonts();
         for (Font font : allFonts) {
+            if (!font.getFontName(Locale.US).contains("."))
             Gui.fontsCombobox.addItem(font.getFontName(Locale.US));
         }
 
