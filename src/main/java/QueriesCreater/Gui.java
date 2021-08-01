@@ -15,13 +15,13 @@ import javax.swing.table.TableColumn;
 public class Gui extends JFrame {
     static JTable columnsTable;
     static DefaultTableModel model;
-    static JTable objectTable;
+    static JTable paramsTable;
     ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
     DefaultTableModel objectModel;
     JComboBox<String> typesCombobox = new JComboBox<>();
     final String [] plsqlTypes = {"NUMBER","VARCHAR2(4000)","DATE","CHAR(69)","NCHAR","NVARCHAR2","LONG","RAW","LONG_RAW",
-                                  "NUMERIC","DEC","DECIMAL","PLS_INTEGER","BFILE","BLOB","CLOB","NCLOB",
-                                  "BOOLEAN","ROWID"};
+            "NUMERIC","DEC","DECIMAL","PLS_INTEGER","BFILE","BLOB","CLOB","NCLOB",
+            "BOOLEAN","ROWID"};
 
     public Gui() {
         this.setResizable(false);
@@ -29,8 +29,8 @@ public class Gui extends JFrame {
         this.setTitle("PL/SQL: excel export");
         this.setFont(new Font("Tahoma", Font.PLAIN, 14));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setBounds(650, 190, 560, 620);
-        this.getContentPane().setBackground(new Color(0xFFF8C9));
+        this.setBounds(650, 190, 560, 582);
+        this.getContentPane().setBackground(new Color(233, 150, 122));
         this.getContentPane().setLayout(null);
 
         // заполняем комбобокс типами данных PL/SQL
@@ -69,38 +69,38 @@ public class Gui extends JFrame {
                 return this.columnEditables[column];
             }
         };
-        objectTable = new JTable(objectModel);
-        objectTable.setDefaultRenderer(Object.class, new TableInfoRenderer());
+        paramsTable = new JTable(objectModel);
+        paramsTable.setDefaultRenderer(Object.class, new TableInfoRenderer());
         // cell border color
-        objectTable.setGridColor(new Color(58, 79, 79));
-        objectTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        paramsTable.setGridColor(new Color(58, 79, 79));
+        paramsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         // table background color
-        objectTable.setFillsViewportHeight(true);
-        objectTable.setBackground(new Color(250, 252, 255));
+        paramsTable.setFillsViewportHeight(true);
+        paramsTable.setBackground(new Color(250, 252, 255));
         // headers settings
-        JTableHeader objectHeader = objectTable.getTableHeader();
+        JTableHeader objectHeader = paramsTable.getTableHeader();
         objectHeader.setFont(new Font("Tahoma", Font.BOLD, 13));
         //cell alignment
         TableInfoRenderer objectRenderer = new TableInfoRenderer();
         objectRenderer.setHorizontalAlignment(JLabel.LEADING);
-        objectTable.getColumnModel().getColumn(0).setCellRenderer(objectRenderer);
-        objectTable.getColumnModel().getColumn(1).setCellRenderer(objectRenderer);
-        objectTable.setRowHeight(24);
-        objectTable.setColumnSelectionAllowed(true);
-        objectTable.setCellSelectionEnabled(true);
-        objectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        objectTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        objectTable.getColumnModel().getColumn(0).setPreferredWidth(158);
-        objectTable.getColumnModel().getColumn(1).setPreferredWidth(158);
+        paramsTable.getColumnModel().getColumn(0).setCellRenderer(objectRenderer);
+        paramsTable.getColumnModel().getColumn(1).setCellRenderer(objectRenderer);
+        paramsTable.setRowHeight(24);
+        paramsTable.setColumnSelectionAllowed(true);
+        paramsTable.setCellSelectionEnabled(true);
+        paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        paramsTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        paramsTable.getColumnModel().getColumn(0).setPreferredWidth(158);
+        paramsTable.getColumnModel().getColumn(1).setPreferredWidth(158);
         //colors
-        objectTable.setSelectionBackground(new Color(254, 204, 204));
-        objectNames.setViewportView(objectTable);
+        paramsTable.setSelectionBackground(new Color(254, 204, 204));
+        objectNames.setViewportView(paramsTable);
 
         // удаление содержимого ячейки кнопкой Delete
-        objectTable.addKeyListener(new KeyAdapter() {
+        paramsTable.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==127){
-                    objectTable.setValueAt("", objectTable.getSelectedRow(), objectTable.getSelectedColumn());
+                    paramsTable.setValueAt("", paramsTable.getSelectedRow(), paramsTable.getSelectedColumn());
                 }
             }
         });
@@ -163,7 +163,7 @@ public class Gui extends JFrame {
 
         // Open CSV file
         JButton openCsvFile = new JButton("Open file");
-        openCsvFile.setBounds(10, 547, 120, 22);
+        openCsvFile.setBounds(410, 25, 120, 22);
         openCsvFile.setBackground(new Color(203, 221, 251));
         openCsvFile.setFont(new Font("Tahoma", Font.BOLD, 11));
         openCsvFile.setContentAreaFilled(true);
@@ -174,7 +174,7 @@ public class Gui extends JFrame {
 
         // Create objects button
         JButton setColumnsBtn = new JButton("Create objects");
-        setColumnsBtn.setBounds(160, 547, 120, 22);
+        setColumnsBtn.setBounds(410, 58, 120, 22);
         setColumnsBtn.setBackground(new Color(192, 225, 255));
         setColumnsBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
         setColumnsBtn.setContentAreaFilled(true);
@@ -183,9 +183,23 @@ public class Gui extends JFrame {
         getContentPane().add(setColumnsBtn);
         setColumnsBtn.addActionListener((e) -> getValues());
 
-        // Clear table
-        JButton clearTableBtn = new JButton("Clear");
-        clearTableBtn.setBounds(310, 547, 120, 22);
+        // Clear parameters
+        JButton clearParams = new JButton("Clear params");
+        clearParams.setFont(new Font("Tahoma", Font.BOLD, 11));
+        clearParams.setFocusable(false);
+        clearParams.setContentAreaFilled(true);
+        clearParams.setBorderPainted(true);
+        clearParams.setBackground(new Color(251, 203, 203));
+        clearParams.setBounds(410, 91, 120, 22);
+        getContentPane().add(clearParams);
+        clearParams.addActionListener((e) -> {
+            for (int i = 0; i < paramsTable.getRowCount(); i++)
+                paramsTable.setValueAt(null, i, 1);
+        });
+
+        // Clear columns
+        JButton clearTableBtn = new JButton("Clear columns");
+        clearTableBtn.setBounds(410, 124, 120, 22);
         clearTableBtn.setBackground(new Color(251, 203, 203));
         clearTableBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
         clearTableBtn.setContentAreaFilled(true);
@@ -226,8 +240,8 @@ public class Gui extends JFrame {
         Object[][] objectParameters = new Object[16][2];
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 2; j++) {
-                if (objectTable.getValueAt(i, j) != null) {
-                    objectParameters [i][j] = objectTable.getValueAt(i, j);
+                if (paramsTable.getValueAt(i, j) != null) {
+                    objectParameters [i][j] = paramsTable.getValueAt(i, j);
                 }
             }
         }
