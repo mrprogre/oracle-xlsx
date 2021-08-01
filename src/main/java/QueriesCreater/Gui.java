@@ -1,7 +1,5 @@
 package QueriesCreater;
 
-import javafx.scene.control.TableRow;
-
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -382,8 +380,10 @@ public class Gui extends JFrame {
                 c.setBackground(new Color(219, 234, 201));
                 c.setHorizontalAlignment(LEFT);
                 c.setFont(new Font("Tahoma", Font.BOLD,13));
-            }
-            else {
+            } else if (column == 1 && row == 5){
+                Object color = paramsTable.getValueAt(5,1);
+                c.setBackground(Color.decode("#" + color));
+            } else {
                 c.setBackground(Color.WHITE);
                 c.setHorizontalAlignment(LEFT);
                 if (isSelected) {
