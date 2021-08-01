@@ -1,6 +1,6 @@
 # oracle_xlsx
 
-<b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/blob/master/oracle_xlsx.jar
+<b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
 ***
 
