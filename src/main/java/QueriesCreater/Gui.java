@@ -34,7 +34,7 @@ public class Gui extends JFrame {
         this.getContentPane().setBackground(new Color(233, 150, 122));
         this.getContentPane().setLayout(null);
 
-        // заполняем комбобокс типами данных PL/SQL
+        // типы данных PL/SQL
         for (String type : plsqlTypes) {
             typesCombobox.addItem(type);
         }
@@ -63,7 +63,7 @@ public class Gui extends JFrame {
                 {"Record type", "t_type_of_record"},
                 {"Table as record", "t_type_of_record_tbl"},
                 {"Table or view", "table_or_view"},
-                {"Headers background", "FFCC66"},
+                {"Headers background", "#FFCC66"},
                 {"Headers font size", 13},
                 {"Rows font size", 12},
                 {"Rows height", 25},
@@ -223,7 +223,7 @@ public class Gui extends JFrame {
         getContentPane().add(clearParams);
         clearParams.addActionListener((e) -> {
             for (int i = 0; i < paramsTable.getRowCount(); i++)
-                paramsTable.setValueAt(null, i, 1);
+                if (i != 5) paramsTable.setValueAt(null, i, 1);
         });
 
         // Clear columns
@@ -244,13 +244,27 @@ public class Gui extends JFrame {
 
         JLabel objectNameLbl = new JLabel("Parameters");
         objectNameLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        objectNameLbl.setBounds(10, 5, 334, 18);
+        objectNameLbl.setBounds(10, 7, 334, 18);
         getContentPane().add(objectNameLbl);
 
         JLabel columnLbl = new JLabel("Columns");
         columnLbl.setFont(new Font("Tahoma", Font.BOLD, 13));
-        columnLbl.setBounds(10, 235, 334, 18);
+        columnLbl.setBounds(10, 237, 334, 18);
         getContentPane().add(columnLbl);
+
+        // Фон gui
+        JButton backGround = new JButton();
+        backGround.setFont(new Font("Tahoma", Font.BOLD, 11));
+        backGround.setFocusable(false);
+        backGround.setContentAreaFilled(true);
+        backGround.setBorderPainted(true);
+        backGround.setBackground(new Color(232, 137, 137));
+        backGround.setBounds(395, 169, 16, 16);
+        getContentPane().add(backGround);
+        backGround.addActionListener(e -> {
+            Color color = JColorChooser.showDialog(null, "Color", Color.black);
+            if (color != null) paramsTable.setValueAt(toHexString(color).toUpperCase(), 5, 1);
+        });
 
         this.setVisible(true);
     }
@@ -382,7 +396,7 @@ public class Gui extends JFrame {
                 c.setFont(new Font("Tahoma", Font.BOLD,13));
             } else if (column == 1 && row == 5){
                 Object color = paramsTable.getValueAt(5,1);
-                if (color != null) c.setBackground(Color.decode("#" + color));
+                if (color != null) c.setBackground(Color.decode(color.toString()));
             } else {
                 c.setBackground(Color.WHITE);
                 c.setHorizontalAlignment(LEFT);
@@ -438,5 +452,19 @@ public class Gui extends JFrame {
             super.setClickCountToStart(1);
             comboBox.setEditable(true);
         }
+    }
+
+    static String toHexString(Color c) {
+        if (c != null) {
+            StringBuilder sb = new StringBuilder("#");
+            if (c.getRed() < 16) sb.append('0');
+            sb.append(Integer.toHexString(c.getRed()));
+            if (c.getGreen() < 16) sb.append('0');
+            sb.append(Integer.toHexString(c.getGreen()));
+            if (c.getBlue() < 16) sb.append('0');
+            sb.append(Integer.toHexString(c.getBlue()));
+        return sb.toString();
+        }
+        return null;
     }
 }
