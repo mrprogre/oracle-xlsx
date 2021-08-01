@@ -382,7 +382,7 @@ public class Gui extends JFrame {
                 c.setFont(new Font("Tahoma", Font.BOLD,13));
             } else if (column == 1 && row == 5){
                 Object color = paramsTable.getValueAt(5,1);
-                c.setBackground(Color.decode("#" + color));
+                if (color != null) c.setBackground(Color.decode("#" + color));
             } else {
                 c.setBackground(Color.WHITE);
                 c.setHorizontalAlignment(LEFT);
