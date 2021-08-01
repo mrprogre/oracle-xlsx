@@ -1,5 +1,7 @@
 package QueriesCreater;
 
+import javafx.scene.control.TableRow;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -7,10 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 
 public class Gui extends JFrame {
     static JTable columnsTable;
@@ -19,6 +18,10 @@ public class Gui extends JFrame {
     ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
     DefaultTableModel objectModel;
     JComboBox<String> typesCombobox = new JComboBox<>();
+    JComboBox<String> booleanCombobox = new JComboBox<>();
+    JComboBox<String> hAlignCombobox = new JComboBox<>();
+    JComboBox<String> vAlignCombobox = new JComboBox<>();
+    static JComboBox<String> fontsCombobox = new JComboBox<>();
     final String [] plsqlTypes = {"NUMBER","VARCHAR2(4000)","DATE","CHAR(69)","NCHAR","NVARCHAR2","LONG","RAW","LONG_RAW",
             "NUMERIC","DEC","DECIMAL","PLS_INTEGER","BFILE","BLOB","CLOB","NCLOB",
             "BOOLEAN","ROWID"};
@@ -37,10 +40,22 @@ public class Gui extends JFrame {
         for (String type : plsqlTypes) {
             typesCombobox.addItem(type);
         }
+        // шрифты
+        Fonts.fontsList();
+        // boolean
+        booleanCombobox.addItem("true");
+        booleanCombobox.addItem("false");
+        // alignments
+        hAlignCombobox.addItem("left");
+        hAlignCombobox.addItem("right");
+        hAlignCombobox.addItem("center");
+        vAlignCombobox.addItem("top");
+        vAlignCombobox.addItem("bottom");
+        vAlignCombobox.addItem("center");
 
         // Object name table
         final JScrollPane objectNames = new JScrollPane();
-        objectNames.setBounds(10, 25, 334, 201);
+        objectNames.setBounds(10, 25, 380, 210);
         getContentPane().add(objectNames);
 
         String[] objectColumns = new String[]{"Object", "Value"};
@@ -69,7 +84,23 @@ public class Gui extends JFrame {
                 return this.columnEditables[column];
             }
         };
-        paramsTable = new JTable(objectModel);
+        paramsTable = new JTable(objectModel){
+            // combo's
+            public TableCellEditor getCellEditor(int row, int column){
+                int modelColumn = convertColumnIndexToModel(column);
+
+                if (modelColumn == 1 && (row == 11 || row == 12)){
+                    return new DefaultCellEditor(fontsCombobox);
+                } else if (modelColumn == 1 && (row == 9 || row == 10)|| row == 15) {
+                    return new DefaultCellEditor(booleanCombobox);
+                } else if (modelColumn == 1 && row == 13) {
+                    return new DefaultCellEditor(hAlignCombobox);
+                } else if (modelColumn == 1 && row == 14) {
+                    return new DefaultCellEditor(vAlignCombobox);
+                } else
+                    return super.getCellEditor(row, column);
+            }
+        };
         paramsTable.setDefaultRenderer(Object.class, new TableInfoRenderer());
         // cell border color
         paramsTable.setGridColor(new Color(58, 79, 79));
@@ -91,7 +122,7 @@ public class Gui extends JFrame {
         paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         paramsTable.setFont(new Font("SansSerif", Font.PLAIN, 13));
         paramsTable.getColumnModel().getColumn(0).setPreferredWidth(158);
-        paramsTable.getColumnModel().getColumn(1).setPreferredWidth(158);
+        paramsTable.getColumnModel().getColumn(1).setPreferredWidth(204);
         //colors
         paramsTable.setSelectionBackground(new Color(254, 204, 204));
         objectNames.setViewportView(paramsTable);
