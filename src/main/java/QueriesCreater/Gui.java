@@ -14,6 +14,7 @@ public class Gui extends JFrame {
     static DefaultTableModel model;
     static JTable paramsTable;
     ImageIcon logo = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/logo.png")));
+    ImageIcon colors = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/colors.png")));
     DefaultTableModel objectModel;
     JComboBox<String> typesCombobox = new JComboBox<>();
     JComboBox<String> booleanCombobox = new JComboBox<>();
@@ -224,6 +225,7 @@ public class Gui extends JFrame {
         clearParams.addActionListener((e) -> {
             for (int i = 0; i < paramsTable.getRowCount(); i++)
                 if (i != 5) paramsTable.setValueAt(null, i, 1);
+                else paramsTable.setValueAt("#FFFFFF", i, 1);
         });
 
         // Clear columns
@@ -252,14 +254,16 @@ public class Gui extends JFrame {
         columnLbl.setBounds(10, 237, 334, 18);
         getContentPane().add(columnLbl);
 
-        // Фон gui
+        // Цвет для заголовков
         JButton backGround = new JButton();
+        backGround.setIcon(colors);
+        backGround.setToolTipText("Choose a background color for headers");
         backGround.setFont(new Font("Tahoma", Font.BOLD, 11));
         backGround.setFocusable(false);
         backGround.setContentAreaFilled(true);
         backGround.setBorderPainted(true);
-        backGround.setBackground(new Color(232, 137, 137));
-        backGround.setBounds(395, 169, 16, 16);
+        backGround.setBackground(new Color(232, 37, 137));
+        backGround.setBounds(395, 166, 26, 23);
         getContentPane().add(backGround);
         backGround.addActionListener(e -> {
             Color color = JColorChooser.showDialog(null, "Color", Color.black);
