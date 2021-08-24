@@ -44,6 +44,8 @@ public class GetSqlQuery {
 
         //создаём таблицу на основе записи
         xlsHeaders.append("type ").append(typeTableName).append(" is table of ").append(recordName).append(";\n\n");
+        // объявляем процедуру в спецификации пакета
+        xlsHeaders.append("procedure ").append(procedureName).append(";\n");
         // создаём функцию на основе типа таблицы
         xlsHeaders.append("function ").append(functionName).append("(p_type in ").append(typeTableName).append(") return blob;\n\n");
 
