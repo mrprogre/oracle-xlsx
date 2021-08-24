@@ -3,6 +3,10 @@
 <b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
 ***
+Подробное описание на Хабре
+
+https://habr.com/ru/post/567966/
+***
 
 
 Export to Excel based on the package <b>AS_XLSX</b>:
