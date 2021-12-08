@@ -333,7 +333,7 @@ public class Gui extends JFrame {
         int ret = save_to.showDialog(null, "Save");
         if (ret == JFileChooser.APPROVE_OPTION) {
             try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(save_to.getSelectedFile() + ".txt"), StandardCharsets.UTF_8)) {
-                writer.write(pSql);
+                writer.write(pSql.replace("#", ""));
                 writer.flush();
             } catch (IOException e) {
                 e.printStackTrace();
