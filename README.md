@@ -1,4 +1,4 @@
-# oracle_xlsx (TODO: убрать значок # в цвете заголовков)
+# oracle_xlsx
 
 <b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
