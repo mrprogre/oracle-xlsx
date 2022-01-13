@@ -18,9 +18,7 @@ gui:
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
 
-approximate result:
-
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
+После нажатия на кнопку "Create objects":
 
     -- Package specification
     -- version 1
@@ -128,3 +126,6 @@ approximate result:
         sb_util.write_log('package.get_xls_function ошибка: ' ||sqlerrm||chr(13)||
     dbms_utility.format_error_backtrace, 'info'); 
     END;
+    
+
+![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
