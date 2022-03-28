@@ -148,4 +148,5 @@ Gui:
     END;
     
 Result:
+
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
