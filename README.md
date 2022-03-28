@@ -18,6 +18,32 @@ gui:
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
 
+Возможности программы:
+
+- Формирование кода объектов PL/SQL производится после ввода параметров и столбцов при нажатии на кнопку "Create objects";
+
+- Столбцы можно редактировать вручную или загружать их по кнопке "Open file" из файлов формата CSV или TXT.
+
+Пример содержимого файла CSV
+    
+    ID;14;BD_ID;NUMBER;
+    NAME;20;BD_NAME;VARCHAR2(60);
+    DATE;18;DB_DATE;DATE
+
+- Record создаётся на выбор в 2 вариантах:
+    - на основе %TYPE view или таблицы (не %ROWTYPE т.к. чаще нужны не все поля для выгрузки);
+    - на основе введённых типов в таблице Columns.
+
+- Возможность очистки списка параметров и столбцов;
+
+- Добавлены комбобоксы со шрифтами, типами данных, boolean переменными и выравниванием в ячейках;
+
+- Цвет фона заголовков можно увидеть сразу в параметрах. При указании другого кода цвета, фон ячейки поменяет цвет на указанный;
+
+- Столбцы с типом данных DATE будут приведены к типу 'DD.MM.YYYY'.
+
+- Зафиксирована строка с заголовками
+
 После нажатия на кнопку "Create objects":
 
     -- Package specification
@@ -101,6 +127,7 @@ gui:
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true));
         as_xlsx.set_column_width(3, 40); as_xlsx.cell(3, 1, 'date', p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true));
+        as_xlsx.freeze_rows(1);
 
     FOR i IN 1..p_type.count
         loop
