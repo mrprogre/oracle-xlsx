@@ -1,10 +1,10 @@
 # oracle_xlsx
 
-<b>Actual version</b>: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
+Actual version: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
-<b>more info</b>: https://habr.com/ru/post/567966/
+info: https://habr.com/ru/post/567966/
 
-Export to Excel based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
+export to xlsx based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
 Gui:
 
@@ -147,5 +147,5 @@ Gui:
     dbms_utility.format_error_backtrace, 'info'); 
     END;
     
-
+Result:
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
