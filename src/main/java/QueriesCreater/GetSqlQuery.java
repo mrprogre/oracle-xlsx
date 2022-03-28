@@ -108,9 +108,10 @@ public class GetSqlQuery {
                     .append("(p_horizontal => '").append(horizontalAlignment).append("', ")
                     .append("p_vertical => '").append(verticalAlignment).append("', ")
                     .append("p_wraptext => ").append(wrapText)
-                    .append("));\n")
-                    .append("  as_xlsx.freeze_rows(1);\n");
+                    .append("));\n");
         }
+        xlsHeaders.append("  as_xlsx.freeze_rows(1);\n");
+
         xlsHeaders.append("  \nFOR i IN 1..p_type.count\n" + "    loop\n"
                 + "    row_num := row_num + 1;\n"
                 + "    as_xlsx.set_row(row_num, p_fontId => as_xlsx.get_font('")
