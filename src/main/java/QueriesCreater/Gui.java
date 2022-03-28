@@ -139,7 +139,7 @@ public class Gui extends JFrame {
         final JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 255, 520, 282);
         this.getContentPane().add(scrollPane);
-        String[] columns = new String[]{"Header", "Width", "Column", "Type"};
+        String[] columns = new String[]{"Header", "Width", "DB Column", "DB Type"};
         model = new DefaultTableModel(new Object[69][], columns) {
             final boolean[] columnEditables = new boolean[]{
                     true, true, true, true
