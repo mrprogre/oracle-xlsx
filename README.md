@@ -1,4 +1,4 @@
-# oracle_xlsx
+# oracle-xlsx
 
 Actual version: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
