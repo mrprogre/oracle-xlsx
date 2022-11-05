@@ -8,9 +8,7 @@ Java must be installed: https://www.java.com/ru/download/
 
 info: https://habr.com/ru/post/567966/
 
-
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
-
+![image](https://user-images.githubusercontent.com/45883640/200116204-dd09ca46-81e9-48af-a7af-5d0ec9c61780.png)
 
 Program features:
 
@@ -150,4 +148,4 @@ After clicking on the "Create objects" button, this code is generated:
     
 Result:
 
-![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/result.png)
+![image](https://user-images.githubusercontent.com/45883640/200116194-ef0c3562-cb40-42f6-9cc4-c11216d22170.png)
