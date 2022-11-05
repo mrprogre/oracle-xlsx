@@ -4,40 +4,40 @@ Actual version: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.j
 
 info: https://habr.com/ru/post/567966/
 
-export to xlsx based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
+Based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
 Gui:
 
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
 
-Возможности программы:
+Program features:
 
-- Формирование кода объектов PL/SQL производится после ввода параметров и столбцов при нажатии на кнопку "Create objects";
+- PL/SQL object code is generated after entering parameters and columns by clicking on the "Create objects" button;
 
-- Столбцы можно редактировать вручную или загружать их по кнопке "Open file" из файлов формата CSV или TXT.
+- Columns can be edited manually or loaded using the "Open file" button from CSV or TXT files.
 
-Пример содержимого файла CSV
+Example CSV file content
     
     ID;14;BD_ID;NUMBER;
     NAME;20;BD_NAME;VARCHAR2(60);
     DATE;18;DB_DATE;DATE
 
-- Record создаётся на выбор в 2 вариантах:
-    - на основе %TYPE view или таблицы (не %ROWTYPE т.к. чаще нужны не все поля для выгрузки);
-    - на основе введённых типов в таблице Columns.
+Record is created to choose from 2 options:
+    - based on %TYPE view or table (not %ROWTYPE because more often not all fields are needed for unloading);
+    - based on the entered types in the Columns table.
 
-- Возможность очистки списка параметров и столбцов;
+- Ability to clear the list of parameters and columns;
 
-- Добавлены комбобоксы со шрифтами, типами данных, boolean переменными и выравниванием в ячейках;
+- Added comboboxes with fonts, data types, boolean variables and cell alignment;
 
-- Цвет фона заголовков можно увидеть сразу в параметрах. При указании другого кода цвета, фон ячейки поменяет цвет на указанный;
+- The background color of the headers can be seen immediately in the options. When specifying a different color code, the cell background will change the color to the specified one;
 
-- Столбцы с типом данных DATE будут приведены к типу 'DD.MM.YYYY'.
+- Columns with data type DATE will be cast to type 'DD.MM.YYYY'.
 
-- Зафиксирована строка с заголовками
+- Fixed header line
 
-После нажатия на кнопку "Create objects":
+After clicking on the "Create objects" button:
 
     -- Package specification
     -- version 1
