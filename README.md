@@ -38,7 +38,7 @@ Record is created to choose from 2 options:
 
 - Fixed header line
 
-After clicking on the "Create objects" button:
+After clicking on the "Create objects" button, this code is generated:
 
     -- Package specification
     -- version 1
