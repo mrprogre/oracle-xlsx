@@ -4,7 +4,7 @@ Based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/
 
 Actual version: https://github.com/mrprogre/oracle_xlsx/raw/master/oracle_xlsx.jar
 
-For the application to work on a PC, Java must be installed: https://www.java.com/ru/download/
+Java must be installed: https://www.java.com/ru/download/
 
 info: https://habr.com/ru/post/567966/
 
