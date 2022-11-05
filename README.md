@@ -6,7 +6,6 @@ info: https://habr.com/ru/post/567966/
 
 Based on the package <b>AS_XLSX</b>: https://github.com/sokolsaiti/as_xlsx/blob/master/as_xlsx.sql
 
-Gui:
 
 ![Image alt](https://github.com/mrprogre/oracle_xlsx/blob/master/gui.png)
 
