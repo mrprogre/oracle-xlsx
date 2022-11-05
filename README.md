@@ -41,39 +41,21 @@ After clicking on the "Create objects" button, this code is generated:
     -- Package specification
     -- version 1
     type t_type_of_record is record (
-      DB_ID table_or_view.DB_ID%TYPE,
-      DB_NAME table_or_view.DB_NAME%TYPE,
-      DB_DATE table_or_view.DB_DATE%TYPE
-    );
-
-    -- version 2
-    type t_type_of_record is record (
-      DB_ID NUMBER,
-      DB_NAME VARCHAR2(69),
-      DB_DATE DATE
-    );
-
-    type t_type_of_record_tbl is table of t_type_of_record;
-
-    function get_xls_function(p_type in t_type_of_record_tbl) return blob;
-
-    -- Package specification
-    -- version 1
-    type t_type_of_record is record (
-        DB_ID table_or_view.DB_ID%TYPE,
-        DB_NAME table_or_view.DB_NAME%TYPE,
+        BD_ID table_or_view.BD_ID%TYPE,
+        BD_NAME table_or_view.BD_NAME%TYPE,
         DB_DATE table_or_view.DB_DATE%TYPE
     );
 
     -- version 2
     type t_type_of_record is record (
-        DB_ID NUMBER,
-        DB_NAME VARCHAR2,
+        BD_ID NUMBER,
+        BD_NAME VARCHAR2(60),
         DB_DATE DATE
     );
 
     type t_type_of_record_tbl is table of t_type_of_record;
 
+    procedure get_xls_from_table;
     function get_xls_function(p_type in t_type_of_record_tbl) return blob;
 
     -- Package body
@@ -83,7 +65,7 @@ After clicking on the "Create objects" button, this code is generated:
       l_file_name varchar2(30) := 'file_name';
       l_type t_type_of_record_tbl;
     begin
-      select DB_ID, DB_NAME, DB_DATE 
+      select BD_ID, BD_NAME, DB_DATE 
         bulk collect into l_type
         from table_or_view
        where column_name between sysdate and sysdate + 1;
@@ -113,13 +95,13 @@ After clicking on the "Create objects" button, this code is generated:
       p_fillId => as_xlsx.get_fill('solid', 'FFCC66'), p_borderId => as_xlsx.get_border);
         -- headers
         as_xlsx.set_row_height(1, 25);
-        as_xlsx.set_column_width(1, 20); as_xlsx.cell(1, 1, 'id', p_alignment => as_xlsx.get_alignment
+        as_xlsx.set_column_width(1, 14); as_xlsx.cell(1, 1, 'ID', p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true));
-        as_xlsx.set_column_width(2, 50); as_xlsx.cell(2, 1, 'name', p_alignment => as_xlsx.get_alignment
+        as_xlsx.set_column_width(2, 20); as_xlsx.cell(2, 1, 'NAME', p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true));
-        as_xlsx.set_column_width(3, 40); as_xlsx.cell(3, 1, 'date', p_alignment => as_xlsx.get_alignment
+        as_xlsx.set_column_width(3, 18); as_xlsx.cell(3, 1, 'DATE', p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true));
-        as_xlsx.freeze_rows(1);
+      as_xlsx.freeze_rows(1);
 
     FOR i IN 1..p_type.count
         loop
@@ -128,13 +110,13 @@ After clicking on the "Create objects" button, this code is generated:
     p_borderId => as_xlsx.get_border);
         as_xlsx.set_row_height(row_num, 25);
         --
-        as_xlsx.cell(1, i + 1, coalesce(p_type(i).DB_ID, '-'), p_alignment => as_xlsx.get_alignment
+        as_xlsx.cell(1, i + 1, coalesce(p_type(i).BD_ID, '-'), p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true), p_fontId => 
     as_xlsx.get_font('Times New Roman', p_fontsize => 12, p_bold => false, p_italic => false));
-        as_xlsx.cell(2, i + 1, coalesce(p_type(i).DB_NAME, '-'), p_alignment => as_xlsx.get_alignment
+        as_xlsx.cell(2, i + 1, coalesce(p_type(i).BD_NAME, '-'), p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true), p_fontId => 
     as_xlsx.get_font('Times New Roman', p_fontsize => 12, p_bold => false, p_italic => false));
-        as_xlsx.cell(3, i + 1, coalesce(p_type(i).DB_DATE, '-'), p_alignment => as_xlsx.get_alignment
+        as_xlsx.cell(3, i + 1, coalesce(to_char(p_type(i).DB_DATE, 'dd.mm.yyyy'), '-'), p_alignment => as_xlsx.get_alignment
     (p_horizontal => 'center', p_vertical => 'center', p_wraptext => true), p_fontId => 
     as_xlsx.get_font('Times New Roman', p_fontsize => 12, p_bold => false, p_italic => false));
         end loop;
